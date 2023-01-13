@@ -1,0 +1,6 @@
+framework module Pods_HocTiengTrung {
+  umbrella header "Pods-HocTiengTrung-umbrella.h"
+
+  export *
+  module * { export * }
+}
