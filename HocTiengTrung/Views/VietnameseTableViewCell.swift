@@ -16,7 +16,7 @@ class VietnameseTableViewCell: UITableViewCell {
     
     var isFavorite = false
     
-    static let indentifier = "vietnameseTableViewCell"
+    static let identifier = "vietnameseTableViewCell"
     
     override func awakeFromNib() {
         super.awakeFromNib()

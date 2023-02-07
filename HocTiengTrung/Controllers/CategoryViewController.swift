@@ -14,6 +14,12 @@ class CategoryViewController: UIViewController {
     
     @IBOutlet var searchBar: UISearchBar!
     
+    @IBOutlet var bookmarkOutlet: UIButton!
+    
+    @IBAction func backButton(_ sender: UIButton) {
+        dismiss(animated: true)
+    }
+    
     @IBAction func bookmarkButton(_ sender: UIButton) {
         let vc = storyboard?.instantiateViewController(withIdentifier: BookmarkViewController.identifier) as! BookmarkViewController
         vc.modalPresentationStyle = .fullScreen
@@ -24,13 +30,14 @@ class CategoryViewController: UIViewController {
     
     var categoryList: [CategoryModel] = [CategoryModel]()
     var searchingDataList: [CategoryModel] = [CategoryModel]()
+    var bookmarkList: [PhraseModel] = [PhraseModel]()
     
     var searching = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        categoryCollectionView.register(CategoryCollectionViewCell.nib(), forCellWithReuseIdentifier: CategoryCollectionViewCell.indentifier)
+        categoryCollectionView.register(CategoryCollectionViewCell.nib(), forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier)
         categoryCollectionView.delegate = self
         categoryCollectionView.dataSource = self
         
@@ -41,9 +48,18 @@ class CategoryViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        bookmarkList = PhraseService.shared.getFavouriteData()
+
+        if bookmarkList.count == 0 {
+            bookmarkOutlet.alpha = 1.0
+            bookmarkOutlet.setImage(UIImage(named: "grayheart"), for: .normal)
+        } else {
+            bookmarkOutlet.alpha = 1.0
+            bookmarkOutlet.setImage(UIImage(named: "pinkheart"), for: .normal)
+        }
+        
         categoryList = CategoryService.shared.getData()
         
-        print("categoryList has \(categoryList.count) elements")
         categoryCollectionView.reloadData()
     }
 }
@@ -53,16 +69,21 @@ class CategoryViewController: UIViewController {
 extension CategoryViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        
         let vc = storyboard?.instantiateViewController(withIdentifier: LearningViewController.identifier) as! LearningViewController
-        vc.categoryId = indexPath.item + 1
-        vc.phraseList = PhraseService.shared.getVietnamesePhrasesData(categoryId: indexPath.item + 1)
-        vc.categoryName = categoryList[indexPath.item].category
+        
+        if searching {
+            vc.categoryId = searchingDataList[indexPath.item].id
+            vc.phraseList = PhraseService.shared.getPhrasesData(categoryId: indexPath.item + 1)
+            vc.categoryName = searchingDataList[indexPath.item].category
+        } else {
+            vc.categoryId = indexPath.item + 1
+            vc.phraseList = PhraseService.shared.getPhrasesData(categoryId: indexPath.item + 1)
+            vc.categoryName = categoryList[indexPath.item].category
+        }
         
         vc.modalPresentationStyle = .fullScreen
         
         self.present(vc, animated: true)
-        print("Tapped \(categoryList[indexPath.item].category)")
     }
 }
 
@@ -77,11 +98,9 @@ extension CategoryViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCollectionViewCell.indentifier, for: indexPath) as! CategoryCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCollectionViewCell.identifier, for: indexPath) as! CategoryCollectionViewCell
         cell.categoryImage.layer.cornerRadius = 10
-        
-        //        print("searchingDataList: \(searchingDataList)")
-        
+                
         if searching {
             cell.categoryImage.image = UIImage(named: searchingDataList[indexPath.item].thumbnail)
             cell.categoryLabel.text = searchingDataList[indexPath.item].category
@@ -92,8 +111,6 @@ extension CategoryViewController: UICollectionViewDataSource {
         
         return cell
     }
-    
-    
 }
 
 extension CategoryViewController: UICollectionViewDelegateFlowLayout {

@@ -14,28 +14,28 @@
         <array key="Now-Regular.otf">
             <string>Now-Regular</string>
         </array>
-        <array key="Nunito-VariableFont_wght.ttf">
+        <array key="Nunito-SemiBold.ttf">
             <string>Nunito-SemiBold</string>
         </array>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="fullPhraseTableViewCell" rowHeight="407" id="KGk-i7-Jjw" customClass="FullPhraseTableViewCell" customModule="HocTiengTrung" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="763" height="407"/>
+        <tableViewCell clipsSubviews="YES" tag="2" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="fullPhraseTableViewCell" rowHeight="175" id="KGk-i7-Jjw" customClass="FullPhraseTableViewCell" customModule="HocTiengTrung" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="760" height="175"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="763" height="407"/>
+                <rect key="frame" x="0.0" y="0.0" width="760" height="175"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Vietnamese" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WtH-7a-eCu">
-                        <rect key="frame" x="0.0" y="30" width="86.666666666666671" height="22"/>
+                        <rect key="frame" x="0.0" y="30" width="87" height="22"/>
                         <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito" pointSize="16"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ykQ-gq-6FA">
-                        <rect key="frame" x="739" y="25" width="24" height="32"/>
+                        <rect key="frame" x="736" y="25" width="24" height="32"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="24" id="DRf-4u-lNX"/>
                         </constraints>
@@ -49,13 +49,13 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pinyin" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZSo-cK-dlh">
-                        <rect key="frame" x="0.0" y="92.333333333333343" width="40" height="260.66666666666663"/>
+                        <rect key="frame" x="0.0" y="92.333333333333329" width="40" height="28.666666666666671"/>
                         <fontDescription key="fontDescription" name="Now-Regular" family="Now" pointSize="14"/>
                         <color key="textColor" systemColor="systemGreenColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p6b-HP-jUd">
-                        <rect key="frame" x="0.0" y="373" width="24" height="24"/>
+                        <rect key="frame" x="0.0" y="141" width="24" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="DfN-1i-gnt"/>
                             <constraint firstAttribute="width" constant="24" id="evF-rL-XbN"/>
@@ -66,7 +66,7 @@
                         </buttonConfiguration>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x7n-wH-cVY">
-                        <rect key="frame" x="739" y="373" width="24" height="24"/>
+                        <rect key="frame" x="736" y="141" width="24" height="24"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="24" id="Sel-RK-71K"/>
                             <constraint firstAttribute="height" constant="24" id="leT-Hw-Vmj"/>
@@ -75,7 +75,7 @@
                         <buttonConfiguration key="configuration" style="plain" image="play"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xIf-1f-FpA">
-                        <rect key="frame" x="40" y="373" width="24" height="24"/>
+                        <rect key="frame" x="40" y="141" width="24" height="24"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="24" id="De1-qA-FnB"/>
                             <constraint firstAttribute="height" constant="24" id="Mo8-bJ-n5l"/>
@@ -84,7 +84,7 @@
                         <buttonConfiguration key="configuration" style="plain" image="speaker"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HNx-Nb-fyB">
-                        <rect key="frame" x="699" y="373" width="24" height="24"/>
+                        <rect key="frame" x="696" y="141" width="24" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="4Qc-o3-slV"/>
                             <constraint firstAttribute="width" constant="24" id="bNY-CP-8FV"/>
@@ -122,9 +122,13 @@
                 <outlet property="chineseLabel" destination="Tba-GQ-x9x" id="zLi-gu-Wae"/>
                 <outlet property="markOutlet" destination="ykQ-gq-6FA" id="Hbq-0d-DEv"/>
                 <outlet property="pinyinLabel" destination="ZSo-cK-dlh" id="gQS-WY-FFP"/>
+                <outlet property="playBtn" destination="xIf-1f-FpA" id="qOw-oy-T1g"/>
+                <outlet property="playSlowlySystemSoundBtn" destination="HNx-Nb-fyB" id="y5n-Xw-Rph"/>
+                <outlet property="playSystemSoundBtn" destination="x7n-wH-cVY" id="CaC-Kj-Lrp"/>
+                <outlet property="recordBtn" destination="p6b-HP-jUd" id="uqa-dp-4V6"/>
                 <outlet property="vietnameseLabel" destination="WtH-7a-eCu" id="vKD-VA-NJb"/>
             </connections>
-            <point key="canvasLocation" x="-80.152671755725194" y="-39.08450704225352"/>
+            <point key="canvasLocation" x="-82.44274809160305" y="-120.77464788732395"/>
         </tableViewCell>
     </objects>
     <resources>

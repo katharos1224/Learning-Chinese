@@ -9,11 +9,10 @@ import UIKit
 
 class CategoryCollectionViewCell: UICollectionViewCell {
     
-    
     @IBOutlet var categoryImage: UIImageView!
     @IBOutlet var categoryLabel: UILabel!
     
-    static let indentifier = "categoryCollectionViewCell"
+    static let identifier = "categoryCollectionViewCell"
     
     override func awakeFromNib() {
         super.awakeFromNib()

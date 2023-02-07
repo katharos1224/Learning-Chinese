@@ -16,10 +16,10 @@ class PhraseService: NSObject {
     var listData: [PhraseModel] = [PhraseModel]()
     let phraseTable = Table("phrase")
     let id = Expression<Int>("_id")
-    let vietnamesePhrases = Expression<String>("english")
+    let vietnamesePhrase = Expression<String>("english")
     let category_id = Expression<Int>("category_id")
     let pinyin = Expression<String>("trans_p_female")
-    let chinesePhrases = Expression<String>("trans_n_female")
+    let chinesePhrase = Expression<String>("trans_n_female")
     let favorite = Expression<Int>("favorite")
     let voice = Expression<String>("voice")
     
@@ -56,7 +56,7 @@ class PhraseService: NSObject {
         if let DatabaseRoot = DatabaseRoot {
             do {
                 for item in try DatabaseRoot.prepare(phraseTable) {
-                    listData.append(PhraseModel(id: item[id], category_id: item[category_id], vietnamesePhrases: item[vietnamesePhrases], pinyin: item[pinyin], chinesePhrases: item[chinesePhrases], favorite: item[favorite], voice: item[voice]))
+                    listData.append(PhraseModel(id: item[id], category_id: item[category_id], vietnamesePhrases: item[vietnamesePhrase], pinyin: item[pinyin], chinesePhrases: item[chinesePhrase], favorite: item[favorite], voice: item[voice]))
                 }
             } catch {
             }
@@ -67,13 +67,13 @@ class PhraseService: NSObject {
     
     // MARK: - Get Phrase Data
     
-    func getVietnamesePhrasesData(categoryId: Int) -> [PhraseModel] {
+    func getPhrasesData(categoryId: Int) -> [PhraseModel] {
         listData.removeAll()
         if let DatabaseRoot = DatabaseRoot {
             do {
                 for item in try DatabaseRoot.prepare(self.phraseTable.filter(self.category_id == categoryId)) {
                     
-                    listData.append(PhraseModel(id: item[id], category_id: item[category_id], vietnamesePhrases: item[vietnamesePhrases], pinyin: item[pinyin], chinesePhrases: item[chinesePhrases], favorite: item[favorite], voice: item[voice]))
+                    listData.append(PhraseModel(id: item[id], category_id: item[category_id], vietnamesePhrases: item[vietnamesePhrase], pinyin: item[pinyin], chinesePhrases: item[chinesePhrase], favorite: item[favorite], voice: item[voice]))
                     
                 }
             } catch {
@@ -91,7 +91,7 @@ class PhraseService: NSObject {
         do {
             if let favoriteList = try  DatabaseRoot?.prepare(self.phraseTable.filter(self.favorite == 1)) {
                 for item in favoriteList {
-                    favoriteData.append(PhraseModel(id: item[id], category_id: item[category_id], vietnamesePhrases: item[vietnamesePhrases], pinyin: item[pinyin], chinesePhrases: item[chinesePhrases], favorite: item[favorite], voice: item[voice]))
+                    favoriteData.append(PhraseModel(id: item[id], category_id: item[category_id], vietnamesePhrases: item[vietnamesePhrase], pinyin: item[pinyin], chinesePhrases: item[chinesePhrase], favorite: item[favorite], voice: item[voice]))
                 }
             }
         } catch {
@@ -105,7 +105,7 @@ class PhraseService: NSObject {
             do {
                 let update = phraseTable.filter(id == phraseId)
                 if (try DatabaseRoot?.run(update.update(favorite <- 1)))! > 0 {
-                    print("Successfully updated favorite!")
+                    print("Successfully added favorite!")
                 } else {
                     print("Favorite is not found")
                 }
@@ -116,7 +116,7 @@ class PhraseService: NSObject {
             do {
                 let update = phraseTable.filter(id == phraseId)
                 if (try DatabaseRoot?.run(update.update(favorite <- 0)))! > 0 {
-                    print("Successfully updated favorite!")
+                    print("Successfully removed favorite!")
                 } else {
                     print("Favorite is not found")
                 }
@@ -134,9 +134,25 @@ class PhraseService: NSObject {
         do {
             let update = userFilter.update(self.favorite <- 0)
             try DatabaseRoot!.run(update)
-            print("Reseted favorite data!")
+            print("Cleared favorite data!")
         } catch{
             print("Update failed: \(error)")
         }
+    }
+    
+    func getVoiceData(categoryId: Int) -> [PhraseModel] {
+        listData.removeAll()
+        if let DatabaseRoot = DatabaseRoot {
+            do {
+                for item in try DatabaseRoot.prepare(self.phraseTable.filter(self.category_id == categoryId)) {
+                    
+                    listData.append(PhraseModel(id: item[id], category_id: item[category_id], vietnamesePhrases: item[vietnamesePhrase], pinyin: item[pinyin], chinesePhrases: item[chinesePhrase], favorite: item[favorite], voice: item[voice]))
+                    
+                }
+            } catch {
+                print("Cannot get data from \(self.phraseTable), Error is: \(error)")
+            }
+        }
+        return listData
     }
 }

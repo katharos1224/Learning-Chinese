@@ -14,14 +14,20 @@ class FullPhraseTableViewCell: UITableViewCell {
     @IBOutlet var markOutlet: UIButton!
     @IBOutlet var chineseLabel: UILabel!
     @IBOutlet var pinyinLabel: UILabel!
+    @IBOutlet var recordBtn: UIButton!
+    @IBOutlet var playBtn: UIButton!
+    @IBOutlet var playSlowlySystemSoundBtn: UIButton!
+    @IBOutlet var playSystemSoundBtn: UIButton!
     
-    static let indentifier = "fullPhraseTableViewCell"
+    static let identifier = "fullPhraseTableViewCell"
     
     var isFavorite = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        playBtn.isEnabled = false
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

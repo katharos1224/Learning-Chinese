@@ -1308,6 +1308,7 @@
 		F48A1A74296D135900F43442 /* emergency30_f.m4a in Resources */ = {isa = PBXBuildFile; fileRef = F48A1589296D135600F43442 /* emergency30_f.m4a */; };
 		F48A1A75296D135900F43442 /* food82_f.m4a in Resources */ = {isa = PBXBuildFile; fileRef = F48A158A296D135700F43442 /* food82_f.m4a */; };
 		F48A1A76296D135900F43442 /* accommodation64_f.m4a in Resources */ = {isa = PBXBuildFile; fileRef = F48A158B296D135700F43442 /* accommodation64_f.m4a */; };
+		F4B449DD2972967800AEE9C1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B449DC2972967800AEE9C1 /* HomeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -2616,6 +2617,7 @@
 		F48A1589296D135600F43442 /* emergency30_f.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = emergency30_f.m4a; sourceTree = "<group>"; };
 		F48A158A296D135700F43442 /* food82_f.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = food82_f.m4a; sourceTree = "<group>"; };
 		F48A158B296D135700F43442 /* accommodation64_f.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = accommodation64_f.m4a; sourceTree = "<group>"; };
+		F4B449DC2972967800AEE9C1 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2726,6 +2728,7 @@
 		F4816F2A2968788F008C97FF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				F4B449DC2972967800AEE9C1 /* HomeViewController.swift */,
 				F4816F1A29687638008C97FF /* CategoryViewController.swift */,
 				F4816F3F296889E6008C97FF /* LearningViewController.swift */,
 				F44F95F729688E29000A3E39 /* BookmarkViewController.swift */,
@@ -5480,6 +5483,7 @@
 				F4816F1729687638008C97FF /* AppDelegate.swift in Sources */,
 				F44F95F829688E29000A3E39 /* BookmarkViewController.swift in Sources */,
 				F433B34929695DF4006D8BEC /* CategoryModel.swift in Sources */,
+				F4B449DD2972967800AEE9C1 /* HomeViewController.swift in Sources */,
 				F4816F1929687638008C97FF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5629,6 +5633,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2A24MHPLW4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HocTiengTrung/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Học Tiếng Trung";
@@ -5637,6 +5642,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5659,6 +5665,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2A24MHPLW4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HocTiengTrung/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Học Tiếng Trung";
@@ -5667,6 +5674,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
