@@ -32,5 +32,4 @@ class VietnameseTableViewCell: UITableViewCell {
     static func nib() -> UINib {
         return UINib(nibName: "VietnameseTableViewCell", bundle: nil)
     }
-    
 }

@@ -174,6 +174,16 @@ class BookmarkViewController: UIViewController {
     
     func getData() {
         bookmarkList = PhraseService.shared.getFavouriteData()
+        
+        if searching {
+            for item in searchingDataList {
+                for item2 in bookmarkList {
+                    if item.id == item2.id {
+                        item.favorite = item2.favorite
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -205,6 +215,8 @@ extension BookmarkViewController: UITableViewDataSource {
                 
                 cell.playSlowlySystemSoundBtn.addGestureRecognizer(UIGestureRecognizer(target: self, action: #selector(playSlowlySystemSound(_:))))
                 
+                cell.playBtn.isEnabled = false
+                
                 if didRecord {
                     cell.playBtn.isEnabled = true
                 }
@@ -213,11 +225,10 @@ extension BookmarkViewController: UITableViewDataSource {
                 cell.chineseLabel.text = searchingDataList[indexPath.item].chinesePhrases
                 cell.pinyinLabel.text = searchingDataList[indexPath.item].pinyin
                 
-                if searchingDataList[indexPath.item].favorite == 1 {
-                    cell.markOutlet.setImage(UIImage(named: "pinkstar"), for: .normal)
-                }
-                else {
+                if searchingDataList[indexPath.item].favorite == 0 {
                     cell.markOutlet.setImage(UIImage(named: "graystar"), for: .normal)
+                } else {
+                    cell.markOutlet.setImage(UIImage(named: "pinkstar"), for: .normal)
                 }
                 
                 selectedIndex = -1
@@ -232,11 +243,10 @@ extension BookmarkViewController: UITableViewDataSource {
             cell.markOutlet.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(updateBookmarkOutlet(_:))))
             cell.vietnameseLabel?.text = searchingDataList[indexPath.item].vietnamesePhrases
             
-            if searchingDataList[indexPath.item].favorite == 1 {
-                cell.markOutlet.setImage(UIImage(named: "pinkstar"), for: .normal)
-            }
-            else {
+            if searchingDataList[indexPath.item].favorite == 0 {
                 cell.markOutlet.setImage(UIImage(named: "graystar"), for: .normal)
+            } else {
+                cell.markOutlet.setImage(UIImage(named: "pinkstar"), for: .normal)
             }
             
             cell.selectionStyle = .none
@@ -251,9 +261,11 @@ extension BookmarkViewController: UITableViewDataSource {
                 
                 cell.playBtn.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(playOurVoice(_:))))
                 
-                cell.playSystemSoundBtn.addGestureRecognizer(UIGestureRecognizer(target: self, action: #selector(playSystemSound(_:))))
+                cell.playSystemSoundBtn.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(playSystemSound(_:))))
                 
-                cell.playSlowlySystemSoundBtn.addGestureRecognizer(UIGestureRecognizer(target: self, action: #selector(playSlowlySystemSound(_:))))
+                cell.playSlowlySystemSoundBtn.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(playSlowlySystemSound(_:))))
+                
+                cell.playBtn.isEnabled = false
                 
                 if didRecord {
                     cell.playBtn.isEnabled = true
@@ -263,11 +275,10 @@ extension BookmarkViewController: UITableViewDataSource {
                 cell.chineseLabel.text = bookmarkList[indexPath.item].chinesePhrases
                 cell.pinyinLabel.text = bookmarkList[indexPath.item].pinyin
                 
-                if bookmarkList[indexPath.item].favorite == 1 {
-                    cell.markOutlet.setImage(UIImage(named: "pinkstar"), for: .normal)
-                }
-                else {
+                if bookmarkList[indexPath.item].favorite == 0 {
                     cell.markOutlet.setImage(UIImage(named: "graystar"), for: .normal)
+                } else {
+                    cell.markOutlet.setImage(UIImage(named: "pinkstar"), for: .normal)
                 }
                 
                 selectedIndex = -1
@@ -282,13 +293,10 @@ extension BookmarkViewController: UITableViewDataSource {
             cell.markOutlet.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(updateBookmarkOutlet(_:))))
             cell.vietnameseLabel.text = bookmarkList[indexPath.item].vietnamesePhrases
             
-            if bookmarkList[indexPath.item].favorite == 1 {
-                cell.vietnameseLabel?.text = bookmarkList[indexPath.item].vietnamesePhrases
-                cell.markOutlet.setImage(UIImage(named: "pinkstar"), for: .normal)
-            }
-            else {
-                cell.vietnameseLabel?.text = bookmarkList[indexPath.item].vietnamesePhrases
+            if bookmarkList[indexPath.item].favorite == 0 {
                 cell.markOutlet.setImage(UIImage(named: "graystar"), for: .normal)
+            } else {
+                cell.markOutlet.setImage(UIImage(named: "pinkstar"), for: .normal)
             }
             
             cell.selectionStyle = .none
@@ -345,7 +353,8 @@ extension BookmarkViewController: UITableViewDataSource {
         let location = sender.location(in: self.tableView)
         let indexPath = self.tableView.indexPathForRow(at: location)
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: FullPhraseTableViewCell.identifier, for: indexPath!) as! FullPhraseTableViewCell
+        let cell = self.tableView.cellForRow(at: indexPath!) as! FullPhraseTableViewCell
+        
         cell.playBtn.isEnabled = true
         
         audioPlayer?.stop()
@@ -368,7 +377,6 @@ extension BookmarkViewController: UITableViewDataSource {
             }
         }
         didRecord = true
-        cell.playBtn.isEnabled = true
     }
     
     @objc func playOurVoice(_ sender: UITapGestureRecognizer) {
@@ -402,10 +410,8 @@ extension BookmarkViewController: UITableViewDataSource {
         let location = sender.location(in: self.tableView)
         let indexPath = self.tableView.indexPathForRow(at: location)
         
-        if playing {
-            audioPlayer?.stop()
-            playing = false
-        }
+        audioPlayer?.stop()
+        playing = false
         
         isPlayingRecordedVoice = false
         isRecordingVoice = false
@@ -415,17 +421,17 @@ extension BookmarkViewController: UITableViewDataSource {
         if searching {
             if playing == false {
                 playCurrentVoice(soundName: searchingDataList[indexPath!.row].voice, rate: 1.0)
-                playing = !playing
+                playing = true
             } else {
-                playing = !playing
+                playing = false
                 stopCurrentVoice(soundName: searchingDataList[indexPath!.row].voice)
             }
         } else {
             if playing == false {
                 playCurrentVoice(soundName: bookmarkList[indexPath!.row].voice, rate: 1.0)
-                playing = !playing
+                playing = true
             } else {
-                playing = !playing
+                playing = false
                 stopCurrentVoice(soundName: bookmarkList[indexPath!.row].voice)
             }
         }
@@ -435,10 +441,8 @@ extension BookmarkViewController: UITableViewDataSource {
         let location = sender.location(in: self.tableView)
         let indexPath = self.tableView.indexPathForRow(at: location)
         
-        if playing {
-            audioPlayer?.stop()
-            playing = false
-        }
+        audioPlayer?.stop()
+        playing = false
         
         isPlayingRecordedVoice = false
         isRecordingVoice = false
@@ -448,26 +452,30 @@ extension BookmarkViewController: UITableViewDataSource {
         if searching {
             if playing == false {
                 playCurrentVoice(soundName: searchingDataList[indexPath!.row].voice, rate: 0.7)
-                playing = !playing
+                playing = true
             } else {
-                playing = !playing
+                playing = false
                 stopCurrentVoice(soundName: searchingDataList[indexPath!.row].voice)
             }
         } else {
             if playing == false {
                 playCurrentVoice(soundName: bookmarkList[indexPath!.row].voice, rate: 0.7)
-                playing = !playing
+                playing = true
             } else {
-                playing = !playing
+                playing = false
                 stopCurrentVoice(soundName: bookmarkList[indexPath!.row].voice)
             }
         }
-        
+        audioPlayer?.delegate = self
     }
 }
 
 extension BookmarkViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if didRecord == true {
+            didRecord = false
+        }
+        
         if playing {
             audioPlayer?.stop()
             playing = false

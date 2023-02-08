@@ -78,6 +78,16 @@ class LearningViewController: UIViewController {
     
     func getData() {
         phraseList = PhraseService.shared.getPhrasesData(categoryId: categoryId)
+        
+        if searching {
+            for item in searchingDataList {
+                for item2 in phraseList {
+                    if item.id == item2.id {
+                        item.favorite = item2.favorite
+                    }
+                }
+            }
+        }
     }
     
     @IBAction func automaticallySelectAllRows(_ sender: UIButton) {
@@ -177,7 +187,6 @@ extension LearningViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // Show full phrase cell
         if playing == true {
             playing = false
         }
@@ -196,6 +205,8 @@ extension LearningViewController: UITableViewDataSource {
                 
                 cell.playSlowlySystemSoundBtn.addGestureRecognizer(UIGestureRecognizer(target: self, action: #selector(playSlowlySystemSound(_:))))
                 
+                cell.playBtn.isEnabled = false
+                
                 if didRecord {
                     cell.playBtn.isEnabled = true
                 }
@@ -204,11 +215,10 @@ extension LearningViewController: UITableViewDataSource {
                 cell.chineseLabel.text = searchingDataList[indexPath.item].chinesePhrases
                 cell.pinyinLabel.text = searchingDataList[indexPath.item].pinyin
                 
-                if searchingDataList[indexPath.item].favorite == 1 {
-                    cell.markOutlet.setImage(UIImage(named: "pinkstar"), for: .normal)
-                }
-                else {
+                if searchingDataList[indexPath.item].favorite == 0 {
                     cell.markOutlet.setImage(UIImage(named: "graystar"), for: .normal)
+                } else {
+                    cell.markOutlet.setImage(UIImage(named: "pinkstar"), for: .normal)
                 }
                 
                 selectedIndex = -1
@@ -223,10 +233,10 @@ extension LearningViewController: UITableViewDataSource {
             cell.markOutlet.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(updateBookmarkOutlet(_:))))
             cell.vietnameseLabel?.text = searchingDataList[indexPath.item].vietnamesePhrases
             
-            if searchingDataList[indexPath.item].favorite == 1 {
-                cell.markOutlet.setImage(UIImage(named: "pinkstar"), for: .normal)
-            } else {
+            if searchingDataList[indexPath.item].favorite == 0 {
                 cell.markOutlet.setImage(UIImage(named: "graystar"), for: .normal)
+            } else {
+                cell.markOutlet.setImage(UIImage(named: "pinkstar"), for: .normal)
             }
             
             cell.selectionStyle = .none
@@ -245,6 +255,8 @@ extension LearningViewController: UITableViewDataSource {
                 cell.playSystemSoundBtn.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(playSystemSound(_:))))
                 
                 cell.playSlowlySystemSoundBtn.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(playSlowlySystemSound(_:))))
+                
+                cell.playBtn.isEnabled = false
                 
                 if didRecord {
                     cell.playBtn.isEnabled = true
@@ -295,7 +307,6 @@ extension LearningViewController: UITableViewDataSource {
         
         if searching {
             let phraseId = searchingDataList[indexPath!.row].id
-            print(searchingDataList.count)
             let favoriteStatus = searchingDataList[indexPath!.row].favorite
             
             PhraseService.shared.updateFavoriteData(phraseId: phraseId, favoriteStatus: favoriteStatus)
@@ -316,6 +327,7 @@ extension LearningViewController: UITableViewDataSource {
         let indexPath = self.tableView.indexPathForRow(at: location)
         
         let cell = self.tableView.cellForRow(at: indexPath!) as! FullPhraseTableViewCell
+        
         cell.playBtn.isEnabled = true
         
         audioPlayer?.stop()
@@ -338,7 +350,6 @@ extension LearningViewController: UITableViewDataSource {
             }
         }
         didRecord = true
-        cell.playBtn.isEnabled = true
     }
     
     @objc func playOurVoice(_ sender: UITapGestureRecognizer) {
@@ -434,6 +445,10 @@ extension LearningViewController: UITableViewDataSource {
 
 extension LearningViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if didRecord == true {
+            didRecord = false
+        }
+        
         if playing {
             audioPlayer?.stop()
             playing = false

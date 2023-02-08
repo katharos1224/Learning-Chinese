@@ -22,7 +22,7 @@ class FullPhraseTableViewCell: UITableViewCell {
     static let identifier = "fullPhraseTableViewCell"
     
     var isFavorite = false
-    
+        
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
