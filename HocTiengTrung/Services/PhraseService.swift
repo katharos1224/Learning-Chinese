@@ -126,6 +126,19 @@ class PhraseService: NSObject {
         }
     }
     
+    func checkIsFavourite(id: Int) -> Bool {
+        for item in self.listData{
+            if item.id == id {
+                if item.favorite == 0 {
+                    return false
+                }else{
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
     func resetFavoriteData() {
         for item in listData {
             item.favorite = 0

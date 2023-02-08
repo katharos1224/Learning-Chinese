@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="0r2-Fp-d71">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -134,14 +135,14 @@
                             <constraint firstItem="iLm-X7-Y9v" firstAttribute="centerX" secondItem="zIh-Kc-j90" secondAttribute="centerX" id="LyN-T7-yzI"/>
                             <constraint firstItem="FLu-c2-SfB" firstAttribute="trailing" secondItem="xcC-Nw-42u" secondAttribute="trailing" constant="24" id="Qz3-e3-FnQ"/>
                             <constraint firstItem="IHF-dK-Ho2" firstAttribute="leading" secondItem="eUO-AQ-EAS" secondAttribute="leading" constant="10" id="SFp-kP-ZRJ"/>
+                            <constraint firstItem="7qg-x5-cu5" firstAttribute="top" secondItem="IHF-dK-Ho2" secondAttribute="bottom" constant="10" id="SwF-cI-gef"/>
                             <constraint firstItem="FLu-c2-SfB" firstAttribute="bottom" secondItem="xcC-Nw-42u" secondAttribute="bottom" id="WOz-8Q-XDw"/>
                             <constraint firstItem="zIh-Kc-j90" firstAttribute="centerX" secondItem="eUO-AQ-EAS" secondAttribute="centerX" id="XQm-Ia-gxJ"/>
                             <constraint firstItem="ire-7A-Keg" firstAttribute="trailing" secondItem="FLu-c2-SfB" secondAttribute="trailing" id="a9y-cX-CPf"/>
-                            <constraint firstItem="7qg-x5-cu5" firstAttribute="top" secondItem="IHF-dK-Ho2" secondAttribute="bottom" constant="10" id="eYr-Vt-s2K"/>
                             <constraint firstItem="7qg-x5-cu5" firstAttribute="top" secondItem="fGb-1W-lzR" secondAttribute="bottom" constant="16" id="eyL-CM-tnA"/>
+                            <constraint firstItem="FLu-c2-SfB" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="IHF-dK-Ho2" secondAttribute="trailing" symbolic="YES" id="mXl-7j-5xl"/>
                             <constraint firstItem="ire-7A-Keg" firstAttribute="top" secondItem="eUO-AQ-EAS" secondAttribute="top" id="mbj-Cp-5cS"/>
                             <constraint firstItem="xcC-Nw-42u" firstAttribute="leading" secondItem="FLu-c2-SfB" secondAttribute="leading" constant="24" id="tpo-Bf-IdT"/>
-                            <constraint firstItem="FLu-c2-SfB" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="IHF-dK-Ho2" secondAttribute="trailing" symbolic="YES" id="wFm-mT-ubk"/>
                         </constraints>
                     </view>
                     <connections>
@@ -204,7 +205,7 @@
                                 </cells>
                             </collectionView>
                             <searchBar clipsSubviews="YES" contentMode="redraw" placeholder="Search..." translatesAutoresizingMaskIntoConstraints="NO" id="h74-wD-gKj">
-                                <rect key="frame" x="103" y="127.5" width="209" height="56"/>
+                                <rect key="frame" x="102" y="127.5" width="210" height="56"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="barTintColor" red="0.1091574058" green="0.096396438779999996" blue="0.26711091399999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
@@ -225,7 +226,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PCG-Ix-edi">
-                                <rect key="frame" x="16" y="124.5" width="72" height="62"/>
+                                <rect key="frame" x="15" y="124.5" width="72" height="62"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="backToPhraseBtn"/>
                                 <connections>
@@ -238,7 +239,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="VaJ-p0-0rb" secondAttribute="bottom" id="0i8-xU-Arm"/>
-                            <constraint firstItem="PCG-Ix-edi" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="6PT-yJ-4Ub"/>
+                            <constraint firstItem="PCG-Ix-edi" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="6PT-yJ-4Ub"/>
                             <constraint firstItem="RHG-EB-Nfw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="9bB-hY-7OJ"/>
                             <constraint firstItem="RHG-EB-Nfw" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="-48" id="EcU-eT-CZs"/>
                             <constraint firstItem="h74-wD-gKj" firstAttribute="top" secondItem="mof-l9-sus" secondAttribute="bottom" constant="16" id="GHc-cw-lKi"/>
@@ -406,15 +407,15 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cqn-TJ-2fh">
-                                <rect key="frame" x="326" y="124.5" width="72" height="62"/>
+                                <rect key="frame" x="327" y="124.5" width="72" height="62"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="favoritebtn"/>
+                                <buttonConfiguration key="configuration" style="plain" image="pinkheart"/>
                                 <connections>
                                     <action selector="markButton:" destination="c0J-p0-fft" eventType="touchUpInside" id="vxC-fg-UrO"/>
                                 </connections>
                             </button>
                             <searchBar clipsSubviews="YES" contentMode="redraw" placeholder="Search..." translatesAutoresizingMaskIntoConstraints="NO" id="kJE-af-FNM">
-                                <rect key="frame" x="103" y="127.5" width="208" height="56"/>
+                                <rect key="frame" x="102" y="127.5" width="210" height="56"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="barTintColor" red="0.1091574058" green="0.096396438779999996" blue="0.26711091399999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
@@ -427,7 +428,7 @@
                                 </connections>
                             </searchBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="enh-rD-25N">
-                                <rect key="frame" x="16" y="124.5" width="72" height="62"/>
+                                <rect key="frame" x="15" y="124.5" width="72" height="62"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="backToPhraseBtn"/>
                                 <connections>
@@ -447,14 +448,14 @@
                             <constraint firstItem="auY-sj-Ff2" firstAttribute="top" secondItem="XF0-Lq-yQT" secondAttribute="top" constant="28" id="PQE-9L-l9K"/>
                             <constraint firstItem="kJE-af-FNM" firstAttribute="top" secondItem="auY-sj-Ff2" secondAttribute="bottom" constant="16" id="U13-es-1uv"/>
                             <constraint firstItem="mnv-rx-mer" firstAttribute="leading" secondItem="XF0-Lq-yQT" secondAttribute="leading" constant="24" id="VOu-HS-amU"/>
-                            <constraint firstItem="XF0-Lq-yQT" firstAttribute="trailing" secondItem="Cqn-TJ-2fh" secondAttribute="trailing" constant="16" id="XO8-KK-dRj"/>
+                            <constraint firstItem="XF0-Lq-yQT" firstAttribute="trailing" secondItem="Cqn-TJ-2fh" secondAttribute="trailing" constant="15" id="XO8-KK-dRj"/>
                             <constraint firstItem="Cqn-TJ-2fh" firstAttribute="centerY" secondItem="kJE-af-FNM" secondAttribute="centerY" id="Z3j-XG-9J1"/>
                             <constraint firstItem="XF0-Lq-yQT" firstAttribute="bottom" secondItem="mnv-rx-mer" secondAttribute="bottom" id="c8K-tx-cLW"/>
                             <constraint firstItem="Cqn-TJ-2fh" firstAttribute="leading" secondItem="kJE-af-FNM" secondAttribute="trailing" constant="15" id="mua-8Q-AkM"/>
                             <constraint firstItem="kJE-af-FNM" firstAttribute="leading" secondItem="enh-rD-25N" secondAttribute="trailing" constant="15" id="owa-EN-vEu"/>
                             <constraint firstItem="XF0-Lq-yQT" firstAttribute="trailing" secondItem="mnv-rx-mer" secondAttribute="trailing" constant="24" id="sCD-y9-6Sr"/>
                             <constraint firstItem="3YA-Nm-FQO" firstAttribute="leading" secondItem="XF0-Lq-yQT" secondAttribute="leading" id="vHR-OC-4DN"/>
-                            <constraint firstItem="enh-rD-25N" firstAttribute="leading" secondItem="XF0-Lq-yQT" secondAttribute="leading" constant="16" id="w36-2F-xgG"/>
+                            <constraint firstItem="enh-rD-25N" firstAttribute="leading" secondItem="XF0-Lq-yQT" secondAttribute="leading" constant="15" id="w36-2F-xgG"/>
                         </constraints>
                     </view>
                     <connections>
@@ -473,9 +474,9 @@
         <image name="backbtn" width="48" height="48"/>
         <image name="background" width="375" height="812"/>
         <image name="book" width="24" height="24"/>
-        <image name="favoritebtn" width="48" height="48"/>
         <image name="grayheart" width="48" height="48"/>
         <image name="home" width="375" height="812"/>
+        <image name="pinkheart" width="48" height="48"/>
         <image name="playbtn" width="48" height="48"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

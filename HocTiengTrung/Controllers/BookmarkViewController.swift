@@ -7,7 +7,6 @@
 
 import UIKit
 import AVFAudio
-import AVFoundation
 
 class BookmarkViewController: UIViewController {
     
@@ -33,7 +32,7 @@ class BookmarkViewController: UIViewController {
         }
         
         if bookmarkList.count == 0 {
-            markOutlet.alpha = 0.75
+            markOutlet.alpha = 0.5
             markOutlet.setImage(UIImage(named: "grayheart"), for: .normal)
         } else {
             markOutlet.alpha = 1.0
@@ -45,7 +44,7 @@ class BookmarkViewController: UIViewController {
     }
     
     @IBAction func backToCategoryButton(_ sender: UIButton) {
-        dismiss(animated: true)
+        dismiss(animated: false)
     }
     
     @IBOutlet var searchBar: UISearchBar!
@@ -86,9 +85,14 @@ class BookmarkViewController: UIViewController {
         voiceRecorder?.delegate = self
                 
         setupRecorder()
+        
         getData()
+        
+        tableView.showsHorizontalScrollIndicator = false
+        tableView.showsVerticalScrollIndicator = false
+        
         if bookmarkList.count == 0 {
-            markOutlet.alpha = 0.75
+            markOutlet.alpha = 0.5
             markOutlet.setImage(UIImage(named: "grayheart"), for: .normal)
         } else {
             markOutlet.alpha = 1.0
@@ -174,31 +178,6 @@ class BookmarkViewController: UIViewController {
 }
 
 // MARK: - LearningViewController Delegate and DataSource Methods
-extension BookmarkViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if playing {
-            audioPlayer?.stop()
-            playing = false
-        }
-        
-        if searching {
-            if playing == false {
-                playCurrentVoice(soundName: searchingDataList[indexPath.row].voice, rate: 1.0)
-                playing = !playing
-            }
-        } else {
-            if playing == false {
-                playCurrentVoice(soundName: bookmarkList[indexPath.row].voice, rate: 1.0)
-                playing = !playing
-            }
-        }
-        
-        searchBar.endEditing(true)
-        selectedIndex = indexPath.row
-        tableView.reloadData()
-    }
-}
-
 extension BookmarkViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if searching {
@@ -216,7 +195,7 @@ extension BookmarkViewController: UITableViewDataSource {
         if searching {
             if selectedIndex == indexPath.row {
                 let cell = tableView.dequeueReusableCell(withIdentifier: FullPhraseTableViewCell.identifier, for: indexPath) as! FullPhraseTableViewCell
-                cell.markOutlet.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(changeBookmarkOutlet(_:))))
+                cell.markOutlet.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(updateBookmarkOutlet(_:))))
                 
                 cell.recordBtn.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(recordOurVoice(_:))))
                 
@@ -250,7 +229,7 @@ extension BookmarkViewController: UITableViewDataSource {
             
             // Show Vietnamese phrase cell
             let cell = tableView.dequeueReusableCell(withIdentifier: VietnameseTableViewCell.identifier, for: indexPath) as! VietnameseTableViewCell
-            cell.markOutlet.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(changeBookmarkOutlet(_:))))
+            cell.markOutlet.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(updateBookmarkOutlet(_:))))
             cell.vietnameseLabel?.text = searchingDataList[indexPath.item].vietnamesePhrases
             
             if searchingDataList[indexPath.item].favorite == 1 {
@@ -266,7 +245,7 @@ extension BookmarkViewController: UITableViewDataSource {
         } else {
             if selectedIndex == indexPath.row {
                 let cell = tableView.dequeueReusableCell(withIdentifier: FullPhraseTableViewCell.identifier, for: indexPath) as! FullPhraseTableViewCell
-                cell.markOutlet.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(changeBookmarkOutlet(_:))))
+                cell.markOutlet.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(updateBookmarkOutlet(_:))))
                 
                 cell.recordBtn.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(recordOurVoice(_:))))
                 
@@ -300,7 +279,7 @@ extension BookmarkViewController: UITableViewDataSource {
             
             // Show Vietnamese phrase cell
             let cell = tableView.dequeueReusableCell(withIdentifier: VietnameseTableViewCell.identifier, for: indexPath) as! VietnameseTableViewCell
-            cell.markOutlet.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(changeBookmarkOutlet(_:))))
+            cell.markOutlet.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(updateBookmarkOutlet(_:))))
             cell.vietnameseLabel.text = bookmarkList[indexPath.item].vietnamesePhrases
             
             if bookmarkList[indexPath.item].favorite == 1 {
@@ -319,7 +298,7 @@ extension BookmarkViewController: UITableViewDataSource {
     }
     
     // MARK: - Button Recognizer
-    @objc func changeBookmarkOutlet(_ sender: UITapGestureRecognizer) {
+    @objc func updateBookmarkOutlet(_ sender: UITapGestureRecognizer) {
         let location = sender.location(in: self.tableView)
         let indexPath = self.tableView.indexPathForRow(at: location)
         
@@ -335,7 +314,7 @@ extension BookmarkViewController: UITableViewDataSource {
             tableView.reloadData()
             
             if bookmarkList.count == 0 {
-                markOutlet.alpha = 0.75
+                markOutlet.alpha = 0.5
                 markOutlet.setImage(UIImage(named: "grayheart"), for: .normal)
             } else {
                 markOutlet.alpha = 1.0
@@ -353,7 +332,7 @@ extension BookmarkViewController: UITableViewDataSource {
             tableView.reloadData()
             
             if bookmarkList.count == 0 {
-                markOutlet.alpha = 0.75
+                markOutlet.alpha = 0.5
                 markOutlet.setImage(UIImage(named: "grayheart"), for: .normal)
             } else {
                 markOutlet.alpha = 1.0
@@ -484,6 +463,31 @@ extension BookmarkViewController: UITableViewDataSource {
             }
         }
         
+    }
+}
+
+extension BookmarkViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if playing {
+            audioPlayer?.stop()
+            playing = false
+        }
+        
+        if searching {
+            if playing == false {
+                playCurrentVoice(soundName: searchingDataList[indexPath.row].voice, rate: 1.0)
+                playing = !playing
+            }
+        } else {
+            if playing == false {
+                playCurrentVoice(soundName: bookmarkList[indexPath.row].voice, rate: 1.0)
+                playing = !playing
+            }
+        }
+        
+        searchBar.endEditing(true)
+        selectedIndex = indexPath.row
+        tableView.reloadData()
     }
 }
 

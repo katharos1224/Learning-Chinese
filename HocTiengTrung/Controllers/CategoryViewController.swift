@@ -17,13 +17,13 @@ class CategoryViewController: UIViewController {
     @IBOutlet var bookmarkOutlet: UIButton!
     
     @IBAction func backButton(_ sender: UIButton) {
-        dismiss(animated: true)
+        dismiss(animated: false)
     }
     
     @IBAction func bookmarkButton(_ sender: UIButton) {
         let vc = storyboard?.instantiateViewController(withIdentifier: BookmarkViewController.identifier) as! BookmarkViewController
         vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true)
+        self.present(vc, animated: false)
     }
     
     static let identifier = "CategoryViewController"
@@ -42,7 +42,8 @@ class CategoryViewController: UIViewController {
         categoryCollectionView.dataSource = self
         
         searchBar.delegate = self
-        
+        categoryCollectionView.showsHorizontalScrollIndicator = false
+        categoryCollectionView.showsVerticalScrollIndicator = false
         categoryCollectionView.backgroundColor = .clear
         searchBar.layer.cornerRadius = 14
     }
@@ -83,7 +84,7 @@ extension CategoryViewController: UICollectionViewDelegate {
         
         vc.modalPresentationStyle = .fullScreen
         
-        self.present(vc, animated: true)
+        self.present(vc, animated: false)
     }
 }
 

@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import AVFoundation
 import AVFAudio
 
 class HomeViewController: UIViewController {
@@ -51,13 +50,13 @@ class HomeViewController: UIViewController {
     @IBAction func startButton(_ sender: UIButton) {
         let vc = storyboard?.instantiateViewController(withIdentifier: CategoryViewController.identifier) as! CategoryViewController
         vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true)
+        self.present(vc, animated: false)
     }
     
     @IBAction func goToFavoriteButton(_ sender: UIButton) {
         let vc = storyboard?.instantiateViewController(withIdentifier: BookmarkViewController.identifier) as! BookmarkViewController
         vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true)
+        self.present(vc, animated: false)
     }
     
     static let identifier = "HomeViewController"
@@ -97,6 +96,8 @@ class HomeViewController: UIViewController {
         searchResultTableView.register(FullPhraseTableViewCell.nib(), forCellReuseIdentifier: FullPhraseTableViewCell.identifier)
         searchResultTableView.delegate = self
         searchResultTableView.dataSource = self
+        searchResultTableView.showsHorizontalScrollIndicator = false
+        searchResultTableView.showsVerticalScrollIndicator = false
         
         searchBar.delegate = self
         
@@ -105,7 +106,6 @@ class HomeViewController: UIViewController {
         voicePlayer?.delegate = self
         
         setupRecorder()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -146,6 +146,19 @@ class HomeViewController: UIViewController {
     func setupPlayer() {
         let audioFileName = getDocumentsDirectory().appendingPathComponent(fileName)
         
+        do {
+            voicePlayer = try AVAudioPlayer(contentsOf: audioFileName)
+            voicePlayer?.delegate = self
+            voicePlayer?.prepareToPlay()
+            voicePlayer?.volume = 5.0
+        } catch {
+            print(error)
+        }
+    }
+    
+    func cancelPlayer() {
+        let audioFileName = getDocumentsDirectory().deletingLastPathComponent()
+
         do {
             voicePlayer = try AVAudioPlayer(contentsOf: audioFileName)
             voicePlayer?.delegate = self
@@ -203,7 +216,7 @@ extension HomeViewController: UITableViewDataSource {
             if selectedIndex == indexPath.row {
                 let cell = searchResultTableView.dequeueReusableCell(withIdentifier: FullPhraseTableViewCell.identifier, for: indexPath) as! FullPhraseTableViewCell
                 
-                cell.markOutlet.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(changeBookmarkOutlet(_:))))
+                cell.markOutlet.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(updateBookmarkOutlet(_:))))
                 
                 cell.recordBtn.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(recordOurVoice(_:))))
                 
@@ -213,6 +226,8 @@ extension HomeViewController: UITableViewDataSource {
                 
                 cell.playSlowlySystemSoundBtn.addGestureRecognizer(UIGestureRecognizer(target: self, action: #selector(playSlowlySystemSound(_:))))
                 
+                cell.playBtn.isEnabled = false
+                
                 if didRecord {
                     cell.playBtn.isEnabled = true
                 }
@@ -221,62 +236,64 @@ extension HomeViewController: UITableViewDataSource {
                 cell.chineseLabel.text = searchingDataList[indexPath.item].chinesePhrases
                 cell.pinyinLabel.text = searchingDataList[indexPath.item].pinyin
                 
-                if searchingDataList[indexPath.item].favorite == 1 {
-                    cell.markOutlet.setImage(UIImage(named: "pinkstar"), for: .normal)
-                }
-                else {
-                    cell.markOutlet.setImage(UIImage(named: "graystar"), for: .normal)
-                }
+//                if searchingDataList[indexPath.item].favorite == 1 {
+//                    cell.markOutlet.setImage(UIImage(named: "pinkstar"), for: .normal)
+//                }
+//                else {
+//                    cell.markOutlet.setImage(UIImage(named: "graystar"), for: .normal)
+//                }
                 
                 selectedIndex = -1
                                 
                 cell.selectionStyle = .none
-                
                 return cell
             }
             
             // Show Vietnamese phrase cell
             let cell = searchResultTableView.dequeueReusableCell(withIdentifier: VietnameseTableViewCell.identifier, for: indexPath) as! VietnameseTableViewCell
-            cell.markOutlet.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(changeBookmarkOutlet(_:))))
+            cell.markOutlet.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(updateBookmarkOutlet(_:))))
             cell.vietnameseLabel?.text = searchingDataList[indexPath.item].vietnamesePhrases
 
-            if searchingDataList[indexPath.item].favorite == 1 {
-                cell.markOutlet.setImage(UIImage(named: "pinkstar"), for: .normal)
-            } else {
-                cell.markOutlet.setImage(UIImage(named: "graystar"), for: .normal)
-            }
+//            if searchingDataList[indexPath.item].favorite == 1 {
+//                cell.markOutlet.setImage(UIImage(named: "pinkstar"), for: .normal)
+//            } else {
+//                cell.markOutlet.setImage(UIImage(named: "graystar"), for: .normal)
+//            }
             
             cell.selectionStyle = .none
-            
             return cell
         }
         
         let cell = searchResultTableView.dequeueReusableCell(withIdentifier: VietnameseTableViewCell.identifier, for: indexPath) as! VietnameseTableViewCell
-        
         return cell
     }
     
     // MARK: - Button Recognizer
-    @objc func changeBookmarkOutlet(_ sender: UITapGestureRecognizer) {
+    @objc func updateBookmarkOutlet(_ sender: UITapGestureRecognizer) {
         let location = sender.location(in: self.searchResultTableView)
         let indexPath = self.searchResultTableView.indexPathForRow(at: location)
+        let phraseId = searchingDataList[indexPath!.row].id
+        let favoriteStatus = searchingDataList[indexPath!.row].favorite
         
-        if searching {
-            let phraseId = searchingDataList[indexPath!.row].id
-            let favoriteStatus = searchingDataList[indexPath!.row].favorite
-            
-            // Update Favorite Status by Phrase ID
-            PhraseService.shared.updateFavoriteData(phraseId: phraseId, favoriteStatus: favoriteStatus)
-            getData()
-            searchResultTableView.reloadData()
+        let cell = self.searchResultTableView.cellForRow(at: indexPath!) as! VietnameseTableViewCell
+        
+        if PhraseService.shared.checkIsFavourite(id: phraseId) {
+            cell.markOutlet.setImage(UIImage(named: "pinkstar"), for: .normal)
+        } else {
+            cell.markOutlet.setImage(UIImage(named: "graystar"), for: .normal)
         }
+
+        PhraseService.shared.updateFavoriteData(phraseId: phraseId, favoriteStatus: favoriteStatus)
+        getData()
+        searchResultTableView.reloadData()
     }
     
     @objc func recordOurVoice(_ sender: UITapGestureRecognizer) {
         let location = sender.location(in: self.searchResultTableView)
         let indexPath = self.searchResultTableView.indexPathForRow(at: location)
         
-        let cell = searchResultTableView.dequeueReusableCell(withIdentifier: FullPhraseTableViewCell.identifier, for: indexPath!) as! FullPhraseTableViewCell
+        let cell = self.searchResultTableView.cellForRow(at: indexPath!) as! FullPhraseTableViewCell
+        
         cell.playBtn.isEnabled = true
         
         audioPlayer?.stop()
@@ -299,7 +316,6 @@ extension HomeViewController: UITableViewDataSource {
             }
         }
         didRecord = true
-        cell.playBtn.isEnabled = true
     }
     
     @objc func playOurVoice(_ sender: UITapGestureRecognizer) {
@@ -405,9 +421,25 @@ extension HomeViewController: UITableViewDelegate {
         }
         
         if searching {
+            print(didRecord)
             if playing == false {
                 playCurrentVoice(soundName: searchingDataList[indexPath.row].voice, rate: 1.0)
                 playing = !playing
+            }
+            
+            if selectedIndex == indexPath.row {
+                let cell = self.searchResultTableView.cellForRow(at: indexPath) as! FullPhraseTableViewCell
+                
+                
+                if didRecord == false {
+                    cell.playBtn.isEnabled = false
+                } else {
+                    cell.playBtn.isEnabled = true
+                }
+                
+                fileName = "\(indexPath.row).m4a"
+                setupRecorder()
+                setupPlayer()
             }
         } else {
             if playing == false {
@@ -438,11 +470,12 @@ extension HomeViewController: UISearchBarDelegate {
         
         if searchText != "" {
             searching = true
-            self.searchResultTableView.reloadData()
         } else {
             searching = false
-            self.searchResultTableView.reloadData()
         }
+        
+        getData()
+        self.searchResultTableView.reloadData()
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
