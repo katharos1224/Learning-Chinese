@@ -7,6 +7,8 @@
 
 import UIKit
 import AVFAudio
+import AVFoundation
+import Toast_Swift
 
 class HomeViewController: UIViewController {
     
@@ -285,18 +287,18 @@ extension HomeViewController: UITableViewDataSource {
         
         if isPlayingRecordedVoice {
             print("Wait for playing recorded voice!")
-            showToast(message: "Wait for playing recorded voice!")
+            searchResultTableView.makeToast("Wait for playing recorded voice!")
         } else {
             if isRecordingVoice {
                 voiceRecorder?.stop()
                 isRecordingVoice = false
-                showToast(message: "Stopped recording your voice!")
+                searchResultTableView.makeToast("Stopped recording your voice!")
                 print("Stop recording my voice!")
                 
             } else {
                 voiceRecorder?.record()
                 isRecordingVoice = true
-                showToast(message: "Recording your voice!")
+                searchResultTableView.makeToast("Recording your voice!")
                 print("Recording my voice!")
             }
         }
@@ -312,7 +314,7 @@ extension HomeViewController: UITableViewDataSource {
         } else {
             if isRecordingVoice {
                 print("Wait for recording my voice!")
-                showToast(message: "Wait for recording your voice!")
+                searchResultTableView.makeToast("Wait for recording your voice!")
             } else {
                 if isPlayingRecordedVoice {
                     voicePlayer?.delegate = self
@@ -489,28 +491,5 @@ extension HomeViewController: AVAudioRecorderDelegate {
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         voiceRecorder?.stop()
         isRecordingVoice = false
-    }
-}
-
-extension HomeViewController {
-    func showToast(message: String) {
-        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width / 2 - 50, y: self.view.frame.size.height - 100, width: self.view.frame.width / 2, height: 50))
-        
-        toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        toastLabel.textColor = UIColor.white
-        toastLabel.font = .systemFont(ofSize: 16.0)
-        toastLabel.textAlignment = .center;
-        toastLabel.text = message
-        toastLabel.alpha = 1.0
-        toastLabel.layer.cornerRadius = 5;
-        toastLabel.clipsToBounds  =  true
-        
-        self.view.addSubview(toastLabel)
-        
-        UIView.animate(withDuration: 3.0, delay: 0, options: .curveEaseOut, animations: {
-            toastLabel.alpha = 0.0
-        }, completion: {(isCompleted) in
-            toastLabel.removeFromSuperview()
-        })
     }
 }

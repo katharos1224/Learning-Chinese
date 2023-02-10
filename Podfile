@@ -8,4 +8,5 @@ target 'HocTiengTrung' do
   # Pods for HocTiengTrung
   
     pod 'SQLite.swift'
+    pod 'Toast-Swift'
 end

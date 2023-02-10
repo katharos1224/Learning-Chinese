@@ -15,7 +15,7 @@
         <array key="Now-Regular.otf">
             <string>Now-Regular</string>
         </array>
-        <array key="Nunito-SemiBold.ttf">
+        <array key="Nunito-VariableFont_wght.ttf">
             <string>Nunito-SemiBold</string>
         </array>
     </customFonts>
@@ -30,18 +30,19 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Vietnamese" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WtH-7a-eCu">
-                        <rect key="frame" x="0.0" y="30" width="87" height="22"/>
+                        <rect key="frame" x="0.0" y="30" width="86.666666666666671" height="22"/>
                         <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito" pointSize="16"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ykQ-gq-6FA">
-                        <rect key="frame" x="736" y="25" width="24" height="32"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ykQ-gq-6FA">
+                        <rect key="frame" x="736" y="30" width="24" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="24" id="DRf-4u-lNX"/>
                         </constraints>
-                        <state key="normal" title="Button"/>
-                        <buttonConfiguration key="configuration" style="plain" image="graystar"/>
+                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" image="graystar"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Chinese" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tba-GQ-x9x">
                         <rect key="frame" x="0.0" y="64" width="62.666666666666664" height="23.333333333333329"/>
@@ -55,43 +56,47 @@
                         <color key="textColor" systemColor="systemGreenColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p6b-HP-jUd">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p6b-HP-jUd">
                         <rect key="frame" x="0.0" y="141" width="24" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="DfN-1i-gnt"/>
                             <constraint firstAttribute="width" constant="24" id="evF-rL-XbN"/>
                         </constraints>
-                        <state key="normal" title="Button"/>
-                        <buttonConfiguration key="configuration" style="plain" image="micro">
-                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage"/>
-                        </buttonConfiguration>
+                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" image="micro">
+                            <preferredSymbolConfiguration key="preferredSymbolConfiguration"/>
+                        </state>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x7n-wH-cVY">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x7n-wH-cVY">
                         <rect key="frame" x="736" y="141" width="24" height="24"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="24" id="Sel-RK-71K"/>
                             <constraint firstAttribute="height" constant="24" id="leT-Hw-Vmj"/>
                         </constraints>
-                        <state key="normal" title="Button"/>
-                        <buttonConfiguration key="configuration" style="plain" image="play"/>
+                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" image="play"/>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xIf-1f-FpA">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xIf-1f-FpA">
                         <rect key="frame" x="40" y="141" width="24" height="24"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="24" id="De1-qA-FnB"/>
                             <constraint firstAttribute="height" constant="24" id="Mo8-bJ-n5l"/>
                         </constraints>
-                        <state key="normal" title="Button"/>
-                        <buttonConfiguration key="configuration" style="plain" image="speaker"/>
+                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" image="speaker"/>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HNx-Nb-fyB">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HNx-Nb-fyB">
                         <rect key="frame" x="696" y="141" width="24" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="4Qc-o3-slV"/>
                             <constraint firstAttribute="width" constant="24" id="bNY-CP-8FV"/>
                         </constraints>
-                        <state key="normal" title="Button"/>
-                        <buttonConfiguration key="configuration" style="plain" image="snail"/>
+                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" image="snail"/>
                     </button>
                 </subviews>
                 <constraints>
