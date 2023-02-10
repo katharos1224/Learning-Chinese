@@ -335,20 +335,16 @@ extension LearningViewController: UITableViewDataSource {
         audioPlayer?.stop()
         
         if isPlayingRecordedVoice {
-            print("Wait for playing recorded voice!")
-            tableView.makeToast("Wait for playing recorded voice!")
+            tableView.makeToast("Wait for playing your recorded voice!", duration: 1.0)
         } else {
             if isRecordingVoice {
                 voiceRecorder?.stop()
                 isRecordingVoice = false
-                tableView.makeToast("Stopped recording your voice!")
-                print("Stop recording my voice!")
-                
+                tableView.makeToast("Stopped recording your voice!", duration: 1.0)
             } else {
                 voiceRecorder?.record()
                 isRecordingVoice = true
-                tableView.makeToast("Recording your voice!")
-                print("Recording my voice!")
+                tableView.makeToast("Recording your voice!", duration: 1.0)
             }
         }
         didRecord = true
@@ -362,20 +358,19 @@ extension LearningViewController: UITableViewDataSource {
             isPlayingRecordedVoice = false
         } else {
             if isRecordingVoice {
-                print("Wait for recording my voice!")
-                tableView.makeToast("Wait for recording your voice!")
+                tableView.makeToast("Wait for recording your voice!", duration: 1.0)
             } else {
                 if isPlayingRecordedVoice {
                     voicePlayer?.delegate = self
                     voicePlayer?.stop()
                     isPlayingRecordedVoice = false
-                    print("Stop playing my voice!")
+                    tableView.makeToast("Stop playing your voice!", duration: 1.0)
                 } else {
                     setupPlayer()
                     voicePlayer?.play()
                     isPlayingRecordedVoice = true
                     audioPlayer?.delegate = self
-                    print("Playing my voice!")
+                    tableView.makeToast("Playing your voice!", duration: 1.0)
                 }
             }
         }
