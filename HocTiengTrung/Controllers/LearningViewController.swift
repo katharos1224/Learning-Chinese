@@ -103,6 +103,8 @@ class LearningViewController: UIViewController {
             playingAllVoices = false
             audioPlayer?.stop()
             playItem = 1
+            let indexPath = IndexPath(row: 0, section: 0)
+            tableView.scrollToRow(at: indexPath, at: .top, animated: true)
             playerOutlet.setImage(UIImage(named: "playbtn"), for: .normal)
         } else {
             playingAllVoices = true
@@ -441,7 +443,7 @@ extension LearningViewController: UITableViewDataSource {
 }
 
 extension LearningViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {        
         if didRecord == true {
             didRecord = false
         }
@@ -523,9 +525,18 @@ extension LearningViewController: AVAudioPlayerDelegate {
         
         if playingAllVoices {
             let indexPath = IndexPath(row: playItem, section: 0)
-            tableView.selectRow(at: indexPath, animated: true, scrollPosition: .bottom)
-            tableView.delegate?.tableView?(tableView, didSelectRowAt: indexPath)
-            playItem += 1
+            
+            if playItem == phraseList.count {
+                playItem = 1
+                audioPlayer?.stop()
+                playingAllVoices = false
+                let indexPath = IndexPath(row: 0, section: 0)
+                tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+            } else {
+                tableView.selectRow(at: indexPath, animated: true, scrollPosition: .bottom)
+                tableView.delegate?.tableView?(tableView, didSelectRowAt: indexPath)
+                playItem += 1
+            }
         }
     }
 }
